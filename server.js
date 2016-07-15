@@ -7,6 +7,7 @@ var rp = require('request-promise');
 var port = process.env.PORT || 8080;        // set our port
 
 var authorize = (function(req,res){
+	var retval;
 	var options = {
 	method: 'POST',
 	uri: 'https://manage.fastfieldforms.com/api/authenticate',
@@ -14,20 +15,22 @@ var authorize = (function(req,res){
       'user': 'sreesh@onerent.co',
       'pass': 'Iopkjh123'
     },
-	heaaders:{ },
+	headers:{ },
 	json:true 
 	};
+	console.log('I am here');
 	rp(options)
-		.then(function (body) {
+		.then(function (req) {
+			console.log('I am in promise');
 			console.log('req');
-			var retval = body;
+			var retval = req.body;
 	})
 		.catch(function (err) {
+			console.log('I am in catch');
 			console.log('req');
     });
 	return retval;
-})();
-
+}) ();
 var authorization = JSON.parse(authorize);
 var token = authorization.sessionToken;
 console.log(token);
