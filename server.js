@@ -41,12 +41,18 @@ app.get('/', function(req, res) {
 
 app.post('/',function(req,res){
 	console.log("authorize");
-	var reqbody = req.body;
 	var options = {
 		method: 'POST',
 		uri: 'https://manage.fastfieldforms.com/api/formdispatch',
 		form: {
-			reqbody
+			formId:req.body.formId,
+			name:req.body.name,
+			recipients:req.body.recipients,
+			autoCreateUsers:req.body.autoCreateUsers,
+			message:req.body.message,
+			dispatchEmailSubject:req.body.dispatchEmailSubject,
+			dispatchEmailMessage:req.body.dispatchEmailMessage,
+			mergeFields:req.body.mergeFields
 		},
 		headers: {
 			'X-Gatekeeper-SessionToken' : token
@@ -64,4 +70,4 @@ app.post('/',function(req,res){
 });
 
 app.listen(port);
-console.log('hi');
+console.log('server started');
